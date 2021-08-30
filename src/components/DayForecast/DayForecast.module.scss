@@ -1,0 +1,16 @@
+@import '../../styles/vars';
+
+.wrapper {
+  padding-bottom: 5vh;
+  background: $color-darkGreen;
+}
+
+.temperature {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.city {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}

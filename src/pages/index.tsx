@@ -1,13 +1,6 @@
 import type { NextPage } from 'next'
-import { DocumentHead } from '../components/DocumentHead'
+import { WeatherApp } from '../components/WeatherApp'
 
-const PageHome: NextPage = () => {
-  return (
-    <>
-      <DocumentHead pageTitle='Home' />
-      <main>Content</main>
-    </>
-  )
-}
+const HomePage: NextPage = () => <WeatherApp />
 
-export default PageHome
+export default HomePage

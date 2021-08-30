@@ -1,0 +1,17 @@
+@import '../../styles/vars';
+
+.header {
+  padding: 1rem;
+}
+
+.labels {
+  text-align: center;
+
+  > * {
+    font-size: 1rem;
+  }
+}
+
+.city {
+  color: $color-gray;
+}
