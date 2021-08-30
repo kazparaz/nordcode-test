@@ -16,5 +16,11 @@ body {
   font-size: 16px;
   line-height: 1;
   color: $color-white;
-  background: $color-darkBlue;
+  background: $color-blue2;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
 }

@@ -1,10 +1,18 @@
 @import '../../styles/vars';
 
-.header {
+.nav {
+  position: relative;
   padding: 1rem;
+
+  > * {
+    z-index: 1;
+  }
 }
 
 .labels {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   text-align: center;
 
   > * {

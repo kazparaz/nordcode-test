@@ -1,23 +1,55 @@
+import { useRef, useState } from 'react'
+import { Autocomplete } from '../Autocomplete/Autocomplete'
 import { Flex } from '../Flex'
 import styles from './Header.module.scss'
 
 export const Header = (): JSX.Element => {
+  const [isConfiguring, setIsConfiguring] = useState(false)
+  const headerElem = useRef<HTMLElement>(null)
+
   return (
-    <Flex
-      as='header'
-      className={styles.header}
-      alignItems='center'
-      justifyContent='space-between'
-      gap='1rem'
-    >
-      <button disabled>Logo</button>
-
-      <div className={styles.labels}>
-        <h1>Weather Forecast</h1>
-        <h3 className={styles.city}>City</h3>
-      </div>
-
-      <button>Settings</button>
-    </Flex>
+    <header ref={headerElem}>
+      {isConfiguring ? (
+        <>
+          <Flex
+            as='nav'
+            className={styles.nav}
+            alignItems='center'
+            justifyContent='space-between'
+            gap='1rem'
+          >
+            <button onClick={() => setIsConfiguring(false)}>Done</button>
+            <Flex
+              className={styles.labels}
+              flexDirection='column'
+              justifyContent='center'
+            >
+              <h1>Location</h1>
+              <h3 className={styles.city}>City</h3>
+            </Flex>
+          </Flex>
+          <Autocomplete headerElem={headerElem} />
+        </>
+      ) : (
+        <Flex
+          as='nav'
+          className={styles.nav}
+          alignItems='center'
+          justifyContent='space-between'
+          gap='1rem'
+        >
+          <button disabled>Logo</button>
+          <Flex
+            className={styles.labels}
+            flexDirection='column'
+            justifyContent='center'
+          >
+            <h1>Weather Forecast</h1>
+            <h3 className={styles.city}>City</h3>
+          </Flex>
+          <button onClick={() => setIsConfiguring(true)}>Settings</button>
+        </Flex>
+      )}
+    </header>
   )
 }
