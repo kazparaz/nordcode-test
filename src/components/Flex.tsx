@@ -10,7 +10,7 @@ export const Flex = (props: {
   justifyItems?: CSSProperties['justifyItems']
   alignContent?: CSSProperties['alignContent']
   alignItems?: CSSProperties['alignItems']
-  gap?: number
+  gap?: string
   children: React.ReactNode
 }): JSX.Element => {
   const TagName = props.as ?? 'div'
@@ -26,7 +26,7 @@ export const Flex = (props: {
         justifyItems: props.justifyItems,
         alignContent: props.alignContent,
         alignItems: props.alignItems,
-        gap: props.gap ? `${props.gap}rem` : undefined,
+        gap: props.gap ? props.gap : undefined,
       }}
     >
       {props.children}

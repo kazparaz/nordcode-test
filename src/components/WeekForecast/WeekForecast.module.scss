@@ -1,0 +1,37 @@
+@import '../../styles/vars';
+
+.itemsWrapper {
+  background: $color-tempBackground;
+}
+
+.item {
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.itemDay {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.itemTemperature {
+  margin-bottom: 1rem;
+}
+
+.itemBarsWrapper {
+  height: 7vh;
+}
+
+.itemBarDay,
+.itemBarNight {
+  width: 50%;
+}
+
+.itemBarDay {
+  background: $color-tempBarDay;
+}
+
+.itemBarNight {
+  background: $color-tempBarNight;
+}

@@ -8,7 +8,7 @@ export const Header = (): JSX.Element => {
       className={styles.header}
       alignItems='center'
       justifyContent='space-between'
-      gap={1}
+      gap='1rem'
     >
       <button disabled>Logo</button>
 
