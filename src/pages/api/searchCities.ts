@@ -1,4 +1,4 @@
-import Fuse from 'fuse.js'
+import { Search, AllSubstringsIndexStrategy } from 'js-search'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type CityItem = {
@@ -18,7 +18,7 @@ type SearchableItems = {
   country: string
 }
 
-type ApiResponse = Fuse.FuseResult<SearchableItems>[] | string
+export type SearchCitiesResponse = SearchableItems[] | string
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cities = require('./cities.json') as CityItem[]
@@ -26,19 +26,20 @@ const cities = require('./cities.json') as CityItem[]
 const searchableItems = cities.map<SearchableItems>(
   ({ id, name, country }) => ({ id, name, country })
 )
-
-const searchIndex = new Fuse(searchableItems, {
-  includeMatches: true,
-  threshold: 0.2,
-  keys: ['name', 'country'],
-})
+const searchInstance = new Search('id')
+// eslint-disable-next-line functional/immutable-data
+// searchInstance.indexStrategy = new AllSubstringsIndexStrategy()
+searchInstance.addIndex('name')
+searchInstance.addIndex('country')
+searchInstance.addDocuments(searchableItems)
 
 const maxResults = 20
 
 export default function requestHandler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse>
+  res: NextApiResponse<SearchCitiesResponse>
 ): void {
+  console.time('search')
   const searchQuery =
     'query' in req.query && typeof req.query.query === 'string'
       ? req.query.query
@@ -49,6 +50,10 @@ export default function requestHandler(
     return
   }
 
-  const searchResults = searchIndex.search(searchQuery).slice(0, maxResults)
+  const searchResults = searchInstance
+    .search(searchQuery)
+    .slice(0, maxResults) as SearchableItems[]
+
   res.status(200).json(searchResults)
+  console.timeEnd('search')
 }
