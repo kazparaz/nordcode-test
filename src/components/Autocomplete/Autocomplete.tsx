@@ -6,8 +6,8 @@ import { globalState } from '../../state'
 import { Flex } from '../Flex'
 import styles from './Autocomplete.module.scss'
 
-// make a empty call to initialize search API for performance
-void api.searchCities('')()
+// make a call to initialize search API for performance
+void api.searchCities('aaaaaa')()
 
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
