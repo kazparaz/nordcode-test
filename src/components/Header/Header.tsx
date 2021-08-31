@@ -1,9 +1,12 @@
+import { useHookstate } from '@hookstate/core'
 import { useRef, useState } from 'react'
+import { globalState } from '../../state'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
 import { Flex } from '../Flex'
 import styles from './Header.module.scss'
 
 export const Header = (): JSX.Element => {
+  const city = useHookstate(globalState.city)
   const [isConfiguring, setIsConfiguring] = useState(false)
   const headerElem = useRef<HTMLElement>(null)
 
@@ -25,7 +28,7 @@ export const Header = (): JSX.Element => {
               justifyContent='center'
             >
               <h1>Location</h1>
-              <h3 className={styles.city}>City</h3>
+              <h3 className={styles.city}>{city.get()}</h3>
             </Flex>
           </Flex>
           <Autocomplete headerElem={headerElem} />
@@ -45,7 +48,7 @@ export const Header = (): JSX.Element => {
             justifyContent='center'
           >
             <h1>Weather Forecast</h1>
-            <h3 className={styles.city}>City</h3>
+            <h3 className={styles.city}>{city.get()}</h3>
           </Flex>
           <button onClick={() => setIsConfiguring(true)}>Settings</button>
         </Flex>

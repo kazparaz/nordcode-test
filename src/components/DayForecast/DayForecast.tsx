@@ -1,8 +1,12 @@
+import { useHookstate } from '@hookstate/core'
+import { globalState } from '../../state'
 import commonStyles from '../../styles/common.module.scss'
 import { Flex } from '../Flex'
 import styles from './DayForecast.module.scss'
 
 export const DayForecast = (): JSX.Element => {
+  const city = useHookstate(globalState.city)
+
   return (
     <Flex as='section' className={commonStyles.flexGrow} flexDirection='column'>
       <h2 className={commonStyles.sectionTitle}>
@@ -19,7 +23,7 @@ export const DayForecast = (): JSX.Element => {
         justifyContent='center'
       >
         <div className={styles.temperature}>6°</div>
-        <div className={styles.city}>City</div>
+        <div className={styles.city}>{city.get()}</div>
         <div>Cloudy</div>
       </Flex>
     </Flex>

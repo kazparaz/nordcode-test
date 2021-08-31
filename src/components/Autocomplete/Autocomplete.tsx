@@ -1,4 +1,6 @@
+import { useHookstate } from '@hookstate/core'
 import { RefObject, useEffect, useState } from 'react'
+import { globalState } from '../../state'
 import { Flex } from '../Flex'
 import styles from './Autocomplete.module.scss'
 
@@ -7,6 +9,7 @@ const cities = ['Kaunas', 'Vilnius', 'Klaipeda', 'Siauliai', 'Panevezys']
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
 }): JSX.Element => {
+  const city = useHookstate(globalState.city)
   const [inputValue, setInputValue] = useState('')
   const [headerBottom, setHeaderBottom] = useState<number>()
 
@@ -31,8 +34,15 @@ export const Autocomplete = (props: {
         className={styles.suggestions}
         style={{ top: headerBottom ? `${headerBottom}px` : undefined }}
       >
-        {cities.map((city) => (
-          <div key={city}>{city}</div>
+        {cities.map((item) => (
+          <a
+            key={item}
+            className={styles.suggestionsItem}
+            href='javascript:void(0)'
+            onClick={() => city.set(item)}
+          >
+            {item}
+          </a>
         ))}
       </div>
     </>
