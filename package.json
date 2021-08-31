@@ -6,8 +6,8 @@
     "dev": "NODE_OPTIONS=--max_old_space_size=4000 next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit && next lint && prettier --check 'src/**/*.{ts,tsx,css,scss,json}'",
-    "prettify": "prettier --write 'src/**/*.{ts,tsx,css,scss,json}'",
+    "lint": "tsc --noEmit && next lint && prettier --check 'src/**/*.{ts,tsx,css,scss}'",
+    "prettify": "prettier --write 'src/**/*.{ts,tsx,css,scss}'",
     "prepare": "husky install",
     "git/pre-commit": "lint-staged",
     "git/pre-push": "yarn lint"
@@ -44,7 +44,7 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "src/**/*.{css,scss,json}": [
+    "src/**/*.{css,scss}": [
       "prettier --write"
     ]
   }

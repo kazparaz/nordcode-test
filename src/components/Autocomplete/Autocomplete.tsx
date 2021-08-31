@@ -16,7 +16,6 @@ export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
   onItemSelect: (city: SearchCityItem) => void
 }): JSX.Element => {
-  const city = useHookstate(globalState.city)
   const searchResults = useHookstate<SearchCitiesResponse | undefined>(
     undefined
   )

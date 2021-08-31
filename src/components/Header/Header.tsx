@@ -1,5 +1,6 @@
 import { useHookstate } from '@hookstate/core'
 import { useRef, useState } from 'react'
+import { SearchCityItem } from '../../pages/api/searchCities'
 import { globalState } from '../../state'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
 import { Flex } from '../Flex'
@@ -9,6 +10,11 @@ export const Header = (): JSX.Element => {
   const city = useHookstate(globalState.city)
   const [isConfiguring, setIsConfiguring] = useState(false)
   const headerElem = useRef<HTMLElement>(null)
+
+  const onItemSelect = (item: SearchCityItem): void => {
+    city.set({ ...item })
+    setIsConfiguring(false)
+  }
 
   return (
     <header ref={headerElem}>
@@ -31,13 +37,7 @@ export const Header = (): JSX.Element => {
               <h3 className={styles.city}>{city.value.name}</h3>
             </Flex>
           </Flex>
-          <Autocomplete
-            headerElem={headerElem}
-            onItemSelect={(item) => {
-              city.set({ ...item })
-              setIsConfiguring(false)
-            }}
-          />
+          <Autocomplete headerElem={headerElem} onItemSelect={onItemSelect} />
         </>
       ) : (
         <Flex

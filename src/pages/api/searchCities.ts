@@ -1,16 +1,6 @@
 import { Search } from 'js-search'
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-type CityItem = {
-  id: number
-  name: string
-  state: string
-  country: string
-  coord: {
-    lon: number
-    lat: number
-  }
-}
+import { cities } from './_helpers'
 
 export type SearchCityItem = {
   id: number
@@ -19,9 +9,6 @@ export type SearchCityItem = {
 }
 
 export type SearchCitiesResponse = SearchCityItem[] | string
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const cities = require('./cities.json') as CityItem[]
 
 const searchableItems = cities.map<SearchCityItem>(({ id, name, country }) => ({
   id,
@@ -39,14 +26,13 @@ export default function requestHandler(
   req: NextApiRequest,
   res: NextApiResponse<SearchCitiesResponse>
 ): void {
-  console.time('search')
   const searchQuery =
     'query' in req.query && typeof req.query.query === 'string'
       ? req.query.query
       : undefined
 
   if (searchQuery === undefined) {
-    res.status(400).send('Invalid "query" param')
+    res.status(400).send('"query" param is missing')
     return
   }
 
@@ -55,5 +41,4 @@ export default function requestHandler(
     .slice(0, maxResults) as SearchCityItem[]
 
   res.status(200).json(searchResults)
-  console.timeEnd('search')
 }
