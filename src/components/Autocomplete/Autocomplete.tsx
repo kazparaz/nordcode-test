@@ -1,23 +1,35 @@
 import { useHookstate } from '@hookstate/core'
-import { RefObject, useEffect, useState } from 'react'
+import { RefObject, useLayoutEffect, useState } from 'react'
+import { api } from '../../api'
+import { SearchCitiesResponse } from '../../pages/api/searchCities'
 import { globalState } from '../../state'
 import { Flex } from '../Flex'
 import styles from './Autocomplete.module.scss'
 
-const cities = ['Kaunas', 'Vilnius', 'Klaipeda', 'Siauliai', 'Panevezys']
+// make a empty call to initialize search API for performance
+void api.searchCities('')()
 
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
 }): JSX.Element => {
   const city = useHookstate(globalState.city)
+  const searchResults = useHookstate<SearchCitiesResponse | undefined>(
+    undefined
+  )
   const [inputValue, setInputValue] = useState('')
   const [headerBottom, setHeaderBottom] = useState<number>()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (props.headerElem.current) {
       setHeaderBottom(props.headerElem.current.getBoundingClientRect().bottom)
     }
   }, [props.headerElem])
+
+  const makeNewSearch = (searchQuery: string): void => {
+    if (!searchResults.promised && searchQuery.length > 1) {
+      searchResults.set(api.searchCities(searchQuery))
+    }
+  }
 
   return (
     <>
@@ -25,7 +37,11 @@ export const Autocomplete = (props: {
         {/* TODO: search icon */}
         <input
           value={inputValue}
-          onInput={(e) => setInputValue((e.target as HTMLInputElement).value)}
+          onInput={(e) => {
+            const value = (e.target as HTMLInputElement).value
+            setInputValue(value)
+            makeNewSearch(value)
+          }}
         />
         <button onClick={() => setInputValue('')}>X</button>
       </Flex>
@@ -34,16 +50,22 @@ export const Autocomplete = (props: {
         className={styles.suggestions}
         style={{ top: headerBottom ? `${headerBottom}px` : undefined }}
       >
-        {cities.map((item) => (
-          <a
-            key={item}
-            className={styles.suggestionsItem}
-            href='javascript:void(0)'
-            onClick={() => city.set(item)}
-          >
-            {item}
-          </a>
-        ))}
+        {searchResults.promised ? (
+          <div>Loading</div>
+        ) : typeof searchResults.value === 'string' ? (
+          <div>Error: {searchResults.value}</div>
+        ) : (
+          searchResults.value?.map((item) => (
+            <a
+              key={item.id}
+              className={styles.suggestionsItem}
+              href='javascript:void(0)'
+              onClick={() => city.set(item)}
+            >
+              {item.name}, {item.country}
+            </a>
+          ))
+        )}
       </div>
     </>
   )

@@ -28,7 +28,7 @@ export const Header = (): JSX.Element => {
               justifyContent='center'
             >
               <h1>Location</h1>
-              <h3 className={styles.city}>{city.get()}</h3>
+              <h3 className={styles.city}>{city.value.name}</h3>
             </Flex>
           </Flex>
           <Autocomplete headerElem={headerElem} />
@@ -48,7 +48,7 @@ export const Header = (): JSX.Element => {
             justifyContent='center'
           >
             <h1>Weather Forecast</h1>
-            <h3 className={styles.city}>{city.get()}</h3>
+            <h3 className={styles.city}>{city.value.name}</h3>
           </Flex>
           <button onClick={() => setIsConfiguring(true)}>Settings</button>
         </Flex>

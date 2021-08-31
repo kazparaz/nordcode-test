@@ -1,4 +1,4 @@
-import { Search, AllSubstringsIndexStrategy } from 'js-search'
+import { Search } from 'js-search'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type CityItem = {
@@ -12,23 +12,23 @@ type CityItem = {
   }
 }
 
-type SearchableItems = {
+export type SearchCityItem = {
   id: number
   name: string
   country: string
 }
 
-export type SearchCitiesResponse = SearchableItems[] | string
+export type SearchCitiesResponse = SearchCityItem[] | string
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cities = require('./cities.json') as CityItem[]
 
-const searchableItems = cities.map<SearchableItems>(
-  ({ id, name, country }) => ({ id, name, country })
-)
+const searchableItems = cities.map<SearchCityItem>(({ id, name, country }) => ({
+  id,
+  name,
+  country,
+}))
 const searchInstance = new Search('id')
-// eslint-disable-next-line functional/immutable-data
-// searchInstance.indexStrategy = new AllSubstringsIndexStrategy()
 searchInstance.addIndex('name')
 searchInstance.addIndex('country')
 searchInstance.addDocuments(searchableItems)
@@ -45,14 +45,14 @@ export default function requestHandler(
       ? req.query.query
       : undefined
 
-  if (!searchQuery) {
+  if (searchQuery === undefined) {
     res.status(400).send('Invalid "query" param')
     return
   }
 
   const searchResults = searchInstance
     .search(searchQuery)
-    .slice(0, maxResults) as SearchableItems[]
+    .slice(0, maxResults) as SearchCityItem[]
 
   res.status(200).json(searchResults)
   console.timeEnd('search')

@@ -23,7 +23,7 @@ export const DayForecast = (): JSX.Element => {
         justifyContent='center'
       >
         <div className={styles.temperature}>6°</div>
-        <div className={styles.city}>{city.get()}</div>
+        <div className={styles.city}>{city.value.name}</div>
         <div>Cloudy</div>
       </Flex>
     </Flex>
