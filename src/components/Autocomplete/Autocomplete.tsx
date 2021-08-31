@@ -1,7 +1,10 @@
 import { useHookstate } from '@hookstate/core'
 import { RefObject, useLayoutEffect, useState } from 'react'
 import { api } from '../../api'
-import { SearchCitiesResponse } from '../../pages/api/searchCities'
+import {
+  SearchCitiesResponse,
+  SearchCityItem,
+} from '../../pages/api/searchCities'
 import { globalState } from '../../state'
 import { Flex } from '../Flex'
 import styles from './Autocomplete.module.scss'
@@ -11,6 +14,7 @@ void api.searchCities('aaaaaa')()
 
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
+  onItemSelect: (city: SearchCityItem) => void
 }): JSX.Element => {
   const city = useHookstate(globalState.city)
   const searchResults = useHookstate<SearchCitiesResponse | undefined>(
@@ -60,7 +64,7 @@ export const Autocomplete = (props: {
               key={item.id}
               className={styles.suggestionsItem}
               href='javascript:void(0)'
-              onClick={() => city.set(item)}
+              onClick={() => props.onItemSelect(item)}
             >
               {item.name}, {item.country}
             </a>

@@ -31,7 +31,13 @@ export const Header = (): JSX.Element => {
               <h3 className={styles.city}>{city.value.name}</h3>
             </Flex>
           </Flex>
-          <Autocomplete headerElem={headerElem} />
+          <Autocomplete
+            headerElem={headerElem}
+            onItemSelect={(item) => {
+              city.set({ ...item })
+              setIsConfiguring(false)
+            }}
+          />
         </>
       ) : (
         <Flex
