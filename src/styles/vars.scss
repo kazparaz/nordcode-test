@@ -1,3 +1,7 @@
+@use "sass:math";
+
+$baseFontSize: 16px;
+
 $color-white: #fff;
 $color-gray: #9fa0a5;
 $color-gray2: #979797;
@@ -7,3 +11,11 @@ $color-blue3: #4e555e;
 $color-tempBackground: #5c6561;
 $color-tempBarDay: #aa8045;
 $color-tempBarNight: #687a9a;
+
+@function toRem($value) {
+  @return math.div(strip-units($value), strip-units($baseFontSize)) + rem;
+}
+
+@function strip-units($value) {
+  @return math.div($value, ($value * 0 + 1));
+}

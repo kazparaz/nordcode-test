@@ -2,7 +2,8 @@
 
 .nav {
   position: relative;
-  padding: 1rem;
+  padding: toRem(12);
+  height: toRem(50);
 
   > * {
     z-index: 1;
@@ -17,9 +18,15 @@
 
   > * {
     font-size: 1rem;
+    font-weight: lighter;
   }
 }
 
 .city {
   color: $color-gray;
+}
+
+.doneLink {
+  font-size: toRem(18);
+  color: $color-blue;
 }

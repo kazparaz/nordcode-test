@@ -11,12 +11,21 @@ div#__next > * {
 
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-size: 16px;
+  font-family: Yantramanav, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: $baseFontSize;
   line-height: 1;
   color: $color-white;
   background: $color-blue2;
+  font-weight: lighter;
+}
+
+h1,
+h2,
+h3,
+h4,
+strong {
+  font-weight: normal;
 }
 
 input,

@@ -3,7 +3,9 @@ import { useRef, useState } from 'react'
 import { SearchCityItem } from '../../pages/api/searchCities'
 import { globalState } from '../../state'
 import { Autocomplete } from '../Autocomplete/Autocomplete'
+import { ClearButton } from '../ClearButton/ClearButton'
 import { Flex } from '../Flex'
+import { Icon } from '../Icon'
 import styles from './Header.module.scss'
 
 export const Header = (): JSX.Element => {
@@ -27,7 +29,12 @@ export const Header = (): JSX.Element => {
             justifyContent='space-between'
             gap='1rem'
           >
-            <button onClick={() => setIsConfiguring(false)}>Done</button>
+            <ClearButton
+              className={styles.doneLink}
+              onClick={() => setIsConfiguring(false)}
+            >
+              Done
+            </ClearButton>
             <Flex
               className={styles.labels}
               flexDirection='column'
@@ -47,7 +54,9 @@ export const Header = (): JSX.Element => {
           justifyContent='space-between'
           gap='1rem'
         >
-          <button disabled>Logo</button>
+          <ClearButton>
+            <Icon id='cloud' width={25} />
+          </ClearButton>
           <Flex
             className={styles.labels}
             flexDirection='column'
@@ -56,7 +65,9 @@ export const Header = (): JSX.Element => {
             <h1>Weather Forecast</h1>
             <h3 className={styles.city}>{city.value.name}</h3>
           </Flex>
-          <button onClick={() => setIsConfiguring(true)}>Settings</button>
+          <ClearButton onClick={() => setIsConfiguring(true)}>
+            <Icon id='settings' width={25} />
+          </ClearButton>
         </Flex>
       )}
     </header>
