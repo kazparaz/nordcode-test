@@ -15,8 +15,17 @@
   margin: 1rem 0 0.5rem;
 }
 
-.itemTemperature {
+.itemTemperatures {
   margin-bottom: 1rem;
+}
+
+.itemTempDay {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.itemTempNight {
+  font-weight: normal;
 }
 
 .itemBarsWrapper {
