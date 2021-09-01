@@ -5,7 +5,15 @@
   background: $color-tempBackground;
 }
 
-.temperature {
+.tempDay {
+  margin-right: 1rem;
+}
+
+.tempNight {
+  font-weight: normal;
+}
+
+.tempCurrent {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
