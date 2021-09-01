@@ -20,7 +20,7 @@ searchInstance.addIndex('name')
 searchInstance.addIndex('country')
 searchInstance.addDocuments(searchableItems)
 
-const maxResults = 20
+const maxResults = 30
 
 export default function requestHandler(
   req: NextApiRequest,

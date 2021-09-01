@@ -1,7 +1,27 @@
 @import '../../styles/vars';
 
 .autocomplete {
-  padding: 0 1rem 0.5rem;
+  position: relative;
+  margin: toRem(8);
+}
+
+.searchIcon,
+.clearIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.searchIcon {
+  left: toRem(8);
+}
+
+.clearIcon {
+  right: toRem(8);
+}
+
+.input {
+  padding: 0 toRem(30);
 }
 
 .suggestions {
@@ -11,12 +31,14 @@
   bottom: 0;
   z-index: 1;
   background: $color-blue3;
+  overflow: auto;
 }
 
 .suggestionsItem {
   display: block;
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: toRem(14) toRem(19);
+  color: $color-gray;
 
   &:not(:first-child):before {
     content: '';

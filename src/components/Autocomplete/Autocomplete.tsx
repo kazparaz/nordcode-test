@@ -5,7 +5,9 @@ import {
   SearchCitiesResponse,
   SearchCityItem,
 } from '../../pages/api/searchCities'
+import { ClearButton } from '../ClearButton/ClearButton'
 import { Flex } from '../Flex'
+import { Icon } from '../Icon'
 import styles from './Autocomplete.module.scss'
 
 export const Autocomplete = (props: {
@@ -30,11 +32,17 @@ export const Autocomplete = (props: {
     }
   }
 
+  const resetSearch = (): void => {
+    setInputValue('')
+    searchResults.set(undefined)
+  }
+
   return (
     <>
       <Flex className={styles.autocomplete} alignItems='center'>
-        {/* TODO: search icon */}
+        <Icon className={styles.searchIcon} id='search' width={13} />
         <input
+          className={styles.input}
           value={inputValue}
           onInput={(e) => {
             const value = (e.target as HTMLInputElement).value
@@ -42,7 +50,11 @@ export const Autocomplete = (props: {
             makeNewSearch(value)
           }}
         />
-        <button onClick={() => setInputValue('')}>X</button>
+        {inputValue && (
+          <ClearButton className={styles.clearIcon} onClick={resetSearch}>
+            <Icon id='clear' width={15} />
+          </ClearButton>
+        )}
       </Flex>
 
       <div
