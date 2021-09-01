@@ -18,47 +18,84 @@ export const WeekForecast = (): JSX.Element => {
       weekday: 'short',
     }),
   }))
-  const highestTemperature = dailyWeather?.reduce(
-    (acc, item) => Math.max(acc, item.temp.day, item.temp.night),
+  const highestTemp = dailyWeather?.reduce(
+    (acc, item) =>
+      Math.max(acc, Math.round(item.temp.day), Math.round(item.temp.night)),
     0
   )
+  const lowestTemp = dailyWeather?.reduce(
+    (acc, item) =>
+      Math.min(acc, Math.round(item.temp.day), Math.round(item.temp.night)),
+    0
+  )
+  // (hTemp - lTemp) = 100%
+  // (0 - lTemp) = x%
+  const positionZeroTemp =
+    highestTemp !== undefined && lowestTemp !== undefined
+      ? ((0 - lowestTemp) * 100) / (highestTemp - lowestTemp)
+      : undefined
+
   return (
     <section>
       <h2 className={commonStyles.sectionTitle}>Week Forecast</h2>
 
       <Flex className={styles.itemsWrapper}>
-        {highestTemperature !== undefined &&
+        {highestTemp !== undefined &&
+          lowestTemp !== undefined &&
+          positionZeroTemp !== undefined &&
           dailyWeather?.map((item) => (
             <div key={item.dt} className={styles.item}>
               <h3 className={styles.itemDay}>{item.dayName}</h3>
 
               <p className={styles.itemTemperatures}>
                 <span className={styles.itemTempDay}>
-                  {item.temp.day.toFixed()}
+                  {Math.round(item.temp.day)}
                 </span>
                 <span className={styles.itemTempNight}>
-                  {item.temp.night.toFixed()}
+                  {Math.round(item.temp.night)}
                 </span>
               </p>
 
-              <Flex
-                className={styles.itemBarsWrapper}
-                alignItems='flex-end'
-                gap='1px'
-              >
+              <div className={styles.itemBarsWrapper}>
+                <div
+                  className={styles.itemBarZeroLine}
+                  style={{ bottom: `${positionZeroTemp}%` }}
+                />
                 {[
-                  { className: styles.itemBarDay, value: item.temp.day },
-                  { className: styles.itemBarNight, value: item.temp.night },
-                ].map((bar) => (
-                  <div
-                    key={bar.className}
-                    className={bar.className}
-                    style={{
-                      height: `${(bar.value / highestTemperature) * 100}%`,
-                    }}
-                  />
-                ))}
-              </Flex>
+                  {
+                    className: styles.itemBarDay,
+                    value: Math.round(item.temp.day),
+                  },
+                  {
+                    className: styles.itemBarNight,
+                    value: Math.round(item.temp.night),
+                  },
+                ].map((bar) => {
+                  // (hTemp - lTemp) = 100%
+                  // (v - lTemp) = x%
+                  const positionBarTemp =
+                    ((bar.value - lowestTemp) * 100) /
+                    (highestTemp - lowestTemp)
+                  return (
+                    <div
+                      key={bar.className}
+                      className={bar.className}
+                      data-value={bar.value}
+                      style={
+                        bar.value > 0
+                          ? {
+                              top: `${100 - positionBarTemp}%`,
+                              bottom: `${positionZeroTemp}%`,
+                            }
+                          : {
+                              top: `${100 - positionZeroTemp}%`,
+                              bottom: `${positionBarTemp}%`,
+                            }
+                      }
+                    />
+                  )
+                })}
+              </div>
             </div>
           ))}
       </Flex>

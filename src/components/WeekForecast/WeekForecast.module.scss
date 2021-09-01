@@ -29,18 +29,31 @@
 }
 
 .itemBarsWrapper {
+  position: relative;
   height: 7vh;
 }
 
 .itemBarDay,
 .itemBarNight {
-  width: 50%;
+  width: calc(50% - 0.5px);
+  position: absolute;
 }
 
 .itemBarDay {
+  left: 0;
   background: $color-tempBarDay;
 }
 
 .itemBarNight {
+  right: 0;
   background: $color-tempBarNight;
+}
+
+.itemBarZeroLine {
+  position: absolute;
+  height: 1px;
+  background: $color-blue2;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
