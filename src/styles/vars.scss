@@ -9,8 +9,8 @@ $color-blue: #54c9f9;
 $color-blue2: #3a424c;
 $color-blue3: #4e555e;
 $color-tempBackground: #5c6561;
-$color-tempBarDay: #aa8045;
-$color-tempBarNight: #687a9a;
+$color-tempBarDay: #f1961c;
+$color-tempBarNight: #6b87bc;
 
 @function toRem($value) {
   @return math.div(strip-units($value), strip-units($baseFontSize)) + rem;

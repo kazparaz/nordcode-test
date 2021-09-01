@@ -1,5 +1,7 @@
 @import '../../styles/vars';
 
+$barTransparentizeAmount: 0.5;
+
 .itemsWrapper {
   background: $color-tempBackground;
 }
@@ -11,21 +13,23 @@
 }
 
 .itemDay {
+  margin: toRem(10) 0;
   font-size: 1rem;
-  margin: 1rem 0 0.5rem;
+  font-weight: lighter;
 }
 
 .itemTemperatures {
-  margin-bottom: 1rem;
+  margin-bottom: toRem(9);
+  font-size: toRem(14);
 }
 
 .itemTempDay {
-  font-weight: bold;
-  margin-right: 0.5rem;
+  margin-right: toRem(10);
+  font-weight: normal;
 }
 
 .itemTempNight {
-  font-weight: normal;
+  font-weight: lighter;
 }
 
 .itemBarsWrapper {
@@ -41,12 +45,14 @@
 
 .itemBarDay {
   left: 0;
-  background: $color-tempBarDay;
+  background: transparentize($color-tempBarDay, $barTransparentizeAmount);
+  border-top: 3px solid $color-tempBarDay;
 }
 
 .itemBarNight {
   right: 0;
-  background: $color-tempBarNight;
+  background: transparentize($color-tempBarNight, $barTransparentizeAmount);
+  border-top: 3px solid $color-tempBarNight;
 }
 
 .itemBarZeroLine {
