@@ -46,7 +46,9 @@ export const DayForecast = (): JSX.Element => {
             : undefined}
         </div>
         <div className={styles.city}>{city.value.name}</div>
-        <div>{weatherData?.current.weather[0]?.main}</div>
+        <div className={styles.weather}>
+          {weatherData?.current.weather[0]?.main}
+        </div>
       </Flex>
     </Flex>
   )

@@ -1,24 +1,30 @@
 @import '../../styles/vars';
 
 .wrapper {
-  padding-bottom: 5vh;
+  padding-bottom: 8vh;
   background: $color-tempBackground;
 }
 
 .tempDay {
-  margin-right: 1rem;
+  margin-right: toRem(16);
 }
 
 .tempNight {
-  font-weight: normal;
+  font-weight: lighter;
 }
 
 .tempCurrent {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: toRem(38);
+  font-size: toRem(72);
 }
 
 .city {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: toRem(6);
+  font-size: toRem(29);
+  font-weight: normal;
+}
+
+.weather {
+  font-size: toRem(16);
+  font-weight: normal;
 }

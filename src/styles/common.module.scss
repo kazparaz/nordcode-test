@@ -1,8 +1,10 @@
+@import 'vars';
+
 .flexGrow {
   flex-grow: 1;
 }
 
 .sectionTitle {
-  padding: 1rem;
-  font-size: 1.25rem;
+  padding: toRem(16) toRem(12);
+  font-size: toRem(18);
 }
