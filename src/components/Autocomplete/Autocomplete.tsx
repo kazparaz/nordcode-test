@@ -5,12 +5,8 @@ import {
   SearchCitiesResponse,
   SearchCityItem,
 } from '../../pages/api/searchCities'
-import { globalState } from '../../state'
 import { Flex } from '../Flex'
 import styles from './Autocomplete.module.scss'
-
-// make a call to initialize search API for performance
-void api.searchCities('aaaaaa')()
 
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>

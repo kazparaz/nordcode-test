@@ -1,6 +1,6 @@
 import { Search } from 'js-search'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { cities } from './_helpers'
+import { cities } from './_cities'
 
 export type SearchCityItem = {
   id: number

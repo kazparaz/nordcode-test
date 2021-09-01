@@ -1,3 +1,4 @@
+import { GetWeatherResponse } from './pages/api/getWeather'
 import { SearchCitiesResponse } from './pages/api/searchCities'
 
 export const api = {
@@ -7,8 +8,8 @@ export const api = {
         (r): Promise<SearchCitiesResponse> => r.json()
       ),
 
-  getWeather: (cityId: number) => async (): Promise<unknown> =>
+  getWeather: (cityId: number) => async (): Promise<GetWeatherResponse> =>
     fetch(`/api/getWeather?id=${cityId}`).then(
-      (r): Promise<unknown> => r.json()
+      (r): Promise<GetWeatherResponse> => r.json()
     ),
 }

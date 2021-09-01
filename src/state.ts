@@ -1,5 +1,5 @@
-// Global state
 import { createState } from '@hookstate/core'
+import { GetWeatherResponse } from './pages/api/getWeather'
 import { SearchCityItem } from './pages/api/searchCities'
 
 export const globalState = {
@@ -8,4 +8,5 @@ export const globalState = {
     name: 'Vilnius',
     country: 'LT',
   }),
+  weather: createState<GetWeatherResponse | undefined>(undefined),
 }
