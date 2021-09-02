@@ -16,6 +16,18 @@ $barTransparentizeAmount: 0.5;
   margin: toRem(10) 0;
   font-size: 1rem;
   font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.itemWeatherIconWrapper {
+  margin: toRem(9) 0 toRem(6);
+}
+
+.itemWeatherIcon {
+  height: toRem(19);
+  width: toRem(25);
+  margin: 0 auto;
+  object-fit: contain;
 }
 
 .itemTemperatures {

@@ -2,6 +2,7 @@ import { useHookstate } from '@hookstate/core'
 import { globalState } from '../../state'
 import commonStyles from '../../styles/common.module.scss'
 import { Flex } from '../Flex'
+import { WeatherIcon } from '../WeatherIcon'
 import styles from './WeekForecast.module.scss'
 
 export const WeekForecast = (): JSX.Element => {
@@ -46,6 +47,13 @@ export const WeekForecast = (): JSX.Element => {
           dailyWeather?.map((item) => (
             <div key={item.dt} className={styles.item}>
               <h3 className={styles.itemDay}>{item.dayName}</h3>
+
+              <div className={styles.itemWeatherIconWrapper}>
+                <WeatherIcon
+                  className={styles.itemWeatherIcon}
+                  type={item.weather[0]?.main}
+                />
+              </div>
 
               <p className={styles.itemTemperatures}>
                 <span className={styles.itemTempDay}>

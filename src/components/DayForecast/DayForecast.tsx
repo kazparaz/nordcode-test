@@ -51,7 +51,7 @@ export const DayForecast = (): JSX.Element => {
           <WeatherIcon
             className={styles.weatherIcon}
             type={weatherData?.current.weather[0]?.main}
-            width={21}
+            width={25}
           />
         </Flex>
       </Flex>
