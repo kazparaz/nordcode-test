@@ -1,5 +1,5 @@
 import { useHookstate } from '@hookstate/core'
-import { RefObject, useLayoutEffect, useState } from 'react'
+import { RefObject, useEffect, useLayoutEffect, useState } from 'react'
 import { api } from '../../api'
 import {
   SearchCitiesResponse,
@@ -10,6 +10,8 @@ import { ClearButton } from '../ClearButton/ClearButton'
 import { Flex } from '../Flex'
 import { Icon } from '../Icon'
 import styles from './Autocomplete.module.scss'
+
+const searchQueryMinLength = 2
 
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
@@ -27,16 +29,13 @@ export const Autocomplete = (props: {
     }
   }, [props.headerElem])
 
-  const makeNewSearch = (searchQuery: string): void => {
-    if (!searchResults.promised && searchQuery.length > 1) {
-      searchResults.set(api.searchCities(searchQuery))
+  useEffect(() => {
+    if (inputValue.length < searchQueryMinLength) {
+      searchResults.set(undefined)
+    } else if (!searchResults.promised) {
+      searchResults.set(api.searchCities(inputValue))
     }
-  }
-
-  const resetSearch = (): void => {
-    setInputValue('')
-    searchResults.set(undefined)
-  }
+  }, [inputValue])
 
   return (
     <>
@@ -45,14 +44,13 @@ export const Autocomplete = (props: {
         <input
           className={styles.input}
           value={inputValue}
-          onInput={(e) => {
-            const value = (e.target as HTMLInputElement).value
-            setInputValue(value)
-            makeNewSearch(value)
-          }}
+          onInput={(e) => setInputValue((e.target as HTMLInputElement).value)}
         />
         {inputValue && (
-          <ClearButton className={styles.clearIcon} onClick={resetSearch}>
+          <ClearButton
+            className={styles.clearIcon}
+            onClick={() => setInputValue('')}
+          >
             <Icon id='clear' width={15} />
           </ClearButton>
         )}
