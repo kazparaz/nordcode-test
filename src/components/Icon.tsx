@@ -1,5 +1,6 @@
 import clear from '../../public/icons/clear.svg'
 import cloud from '../../public/icons/cloud.svg'
+import loader from '../../public/icons/loader.svg'
 import search from '../../public/icons/search.svg'
 import settings from '../../public/icons/settings.svg'
 import weatherClouds from '../../public/icons/weather-clouds.svg'
@@ -11,6 +12,7 @@ import weatherSun from '../../public/icons/weather-sun.svg'
 const icons = {
   clear: ['Clear icon', clear as StaticImageData],
   cloud: ['Cloud icon', cloud as StaticImageData],
+  loader: ['Loading icon', loader as StaticImageData],
   search: ['Search icon', search as StaticImageData],
   settings: ['Gear icon', settings as StaticImageData],
   weatherClouds: ['Cloudy weather icon', weatherClouds as StaticImageData],

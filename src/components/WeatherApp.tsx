@@ -8,6 +8,7 @@ import { DayForecast } from './DayForecast/DayForecast'
 import { DocumentHead } from './DocumentHead'
 import { Flex } from './Flex'
 import { Header } from './Header/Header'
+import { Icon } from './Icon'
 import { WeekForecast } from './WeekForecast/WeekForecast'
 
 export const WeatherApp = (): JSX.Element => {
@@ -28,10 +29,25 @@ export const WeatherApp = (): JSX.Element => {
       <DocumentHead pageTitle='Weather Forecast' />
       <Header />
 
-      <Flex as='main' flexDirection='column' className={commonStyles.flexGrow}>
-        <DayForecast />
-        <WeekForecast />
-      </Flex>
+      {weather.promised ? (
+        <Flex
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          className={commonStyles.flexGrow}
+        >
+          <Icon id='loader' width={50} />
+        </Flex>
+      ) : (
+        <Flex
+          as='main'
+          flexDirection='column'
+          className={commonStyles.flexGrow}
+        >
+          <DayForecast />
+          <WeekForecast />
+        </Flex>
+      )}
     </Flex>
   )
 }
