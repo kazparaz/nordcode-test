@@ -1,4 +1,5 @@
 import { useHookstate } from '@hookstate/core'
+import { Persistence } from '@hookstate/persistence'
 import { useEffect } from 'react'
 import { api } from '../api'
 import { globalState } from '../state'
@@ -12,6 +13,10 @@ import { WeekForecast } from './WeekForecast/WeekForecast'
 export const WeatherApp = (): JSX.Element => {
   const city = useHookstate(globalState.city)
   const weather = useHookstate(globalState.weather)
+
+  if (process.browser) {
+    city.attach(Persistence('weatherApp:city'))
+  }
 
   useEffect(() => {
     weather.set(api.getWeather(city.value.id))
