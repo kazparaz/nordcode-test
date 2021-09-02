@@ -5,6 +5,7 @@ import {
   SearchCitiesResponse,
   SearchCityItem,
 } from '../../pages/api/searchCities'
+import commonStyles from '../../styles/common.module.scss'
 import { ClearButton } from '../ClearButton/ClearButton'
 import { Flex } from '../Flex'
 import { Icon } from '../Icon'
@@ -57,12 +58,20 @@ export const Autocomplete = (props: {
         )}
       </Flex>
 
-      <div
+      <Flex
+        flexDirection='column'
         className={styles.suggestions}
         style={{ top: headerBottom ? `${headerBottom}px` : undefined }}
       >
         {searchResults.promised ? (
-          <div>Loading</div>
+          <Flex
+            flexDirection='column'
+            alignItems='center'
+            justifyContent='center'
+            className={commonStyles.flexGrow}
+          >
+            <Icon id='loader' width={50} />
+          </Flex>
         ) : typeof searchResults.value === 'string' ? (
           <div>Error: {searchResults.value}</div>
         ) : (
@@ -77,7 +86,7 @@ export const Autocomplete = (props: {
             </a>
           ))
         )}
-      </div>
+      </Flex>
     </>
   )
 }

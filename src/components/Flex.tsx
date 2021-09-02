@@ -1,17 +1,17 @@
-import React, { CSSProperties } from 'react'
 import { isDefined } from '../utils'
 
 export const Flex = (props: {
   as?: keyof JSX.IntrinsicElements
   className?: string
   flexWrap?: boolean
-  flexDirection?: CSSProperties['flexDirection']
-  justifyContent?: CSSProperties['justifyContent']
-  justifyItems?: CSSProperties['justifyItems']
-  alignContent?: CSSProperties['alignContent']
-  alignItems?: CSSProperties['alignItems']
+  flexDirection?: React.CSSProperties['flexDirection']
+  justifyContent?: React.CSSProperties['justifyContent']
+  justifyItems?: React.CSSProperties['justifyItems']
+  alignContent?: React.CSSProperties['alignContent']
+  alignItems?: React.CSSProperties['alignItems']
   gap?: string
   children: React.ReactNode
+  style?: React.CSSProperties
 }): JSX.Element => {
   const TagName = props.as ?? 'div'
 
@@ -27,6 +27,7 @@ export const Flex = (props: {
         alignContent: props.alignContent,
         alignItems: props.alignItems,
         gap: props.gap ? props.gap : undefined,
+        ...props.style,
       }}
     >
       {props.children}
