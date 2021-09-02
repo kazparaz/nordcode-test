@@ -87,8 +87,13 @@ export const WeekForecast = (): JSX.Element => {
                   return (
                     <div
                       key={bar.className}
-                      className={bar.className}
-                      data-value={bar.value}
+                      className={`${bar.className} ${
+                        bar.value > 0
+                          ? styles.itemBarTipTop
+                          : bar.value < 0
+                          ? styles.itemBarTipBottom
+                          : ''
+                      }`}
                       style={
                         bar.value > 0
                           ? {
