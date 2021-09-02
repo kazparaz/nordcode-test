@@ -6,7 +6,7 @@ type OpenWeatherError = {
   message: string
 }
 
-type OpenWeatherSharedWeatherData = {
+export type OpenWeatherSharedWeatherData = {
   dt: number
   sunrise: number
   sunset: number
@@ -17,7 +17,14 @@ type OpenWeatherSharedWeatherData = {
   wind_deg: number
   weather: {
     id: number
-    main: string
+    main:
+      | 'Thunderstorm'
+      | 'Drizzle'
+      | 'Rain'
+      | 'Snow'
+      | 'Atmosphere'
+      | 'Clear'
+      | 'Clouds'
     description: string
     icon: string
   }[]

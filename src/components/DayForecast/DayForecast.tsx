@@ -2,6 +2,7 @@ import { useHookstate } from '@hookstate/core'
 import { globalState } from '../../state'
 import commonStyles from '../../styles/common.module.scss'
 import { Flex } from '../Flex'
+import { WeatherIcon } from '../WeatherIcon'
 import styles from './DayForecast.module.scss'
 
 export const DayForecast = (): JSX.Element => {
@@ -13,7 +14,6 @@ export const DayForecast = (): JSX.Element => {
     'current' in weather.value
       ? weather.value
       : undefined
-
   return (
     <Flex as='section' className={commonStyles.flexGrow} flexDirection='column'>
       <h2 className={commonStyles.sectionTitle}>
@@ -46,9 +46,14 @@ export const DayForecast = (): JSX.Element => {
             : undefined}
         </div>
         <div className={styles.city}>{city.value.name}</div>
-        <div className={styles.weather}>
-          {weatherData?.current.weather[0]?.main}
-        </div>
+        <Flex className={styles.weather} alignItems='center'>
+          <span>{weatherData?.current.weather[0]?.main}</span>
+          <WeatherIcon
+            className={styles.weatherIcon}
+            type={weatherData?.current.weather[0]?.main}
+            width={21}
+          />
+        </Flex>
       </Flex>
     </Flex>
   )
