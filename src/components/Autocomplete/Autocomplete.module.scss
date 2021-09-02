@@ -49,4 +49,9 @@
     left: 1rem;
     right: 0;
   }
+
+  strong {
+    font-weight: inherit;
+    color: $color-white;
+  }
 }

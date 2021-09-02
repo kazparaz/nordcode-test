@@ -13,6 +13,16 @@ import styles from './Autocomplete.module.scss'
 
 const searchQueryMinLength = 2
 
+const Highlight = (props: {
+  fullValue: string
+  searchValue: string
+}): JSX.Element => {
+  const regex = RegExp(`(${props.searchValue})`, 'gi')
+  const replacement = '<strong>$1</strong>'
+  const newHTML = props.fullValue.replace(regex, replacement)
+  return <span dangerouslySetInnerHTML={{ __html: newHTML }} />
+}
+
 export const Autocomplete = (props: {
   headerElem: RefObject<HTMLElement>
   onItemSelect: (city: SearchCityItem) => void
@@ -80,7 +90,8 @@ export const Autocomplete = (props: {
               href='javascript:void(0)'
               onClick={() => props.onItemSelect(item)}
             >
-              {item.name}, {item.country}
+              <Highlight fullValue={item.name} searchValue={inputValue} />,{' '}
+              <Highlight fullValue={item.country} searchValue={inputValue} />
             </a>
           ))
         )}
