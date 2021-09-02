@@ -20,6 +20,7 @@ export const WeatherApp = (): JSX.Element => {
 
   useEffect(() => {
     weather.set(api.getWeather(city.value.id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city.value.id])
 
   return (
